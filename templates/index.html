@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your App</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+</head>
+<body>
+    <section class="hero is-fullheight">
+        <div class="hero-body">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-three-fifths has-text-centered-mobile">
+                    <h1 class="title is-1">Morphosis</h1>
+                    <h2 class="subtitle">Upload and transform your images with ease.</h2>
+                </div>
+                <div class="column">
+                    <form id='form' hx-encoding='multipart/form-data' hx-post='/upload' hx-trigger="change from:.file-input" hx-swap="outerHTML"> <!-- Form for uploading picture -->
+                        <div class="file p-auto is-large is-boxed is-centered">
+                            <label class="file-label">
+                                <input class="file-input" type="file" name="file">
+                                <span class="file-cta p-6">
+                                    <span class="file-icon">
+                                        <box-icon name='upload' color='#ffffff' size='36px'></box-icon>
+                                    </span>
+                                    <span class="file-label">
+                                        Choose a file…
+                                    </span>
+                                </span>
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div id="result" class="mt-4"></div>
+            </div>
+        </div>
+        </div>
+    </section>
+</body>
+</html>
