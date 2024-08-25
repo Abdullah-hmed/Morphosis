@@ -7,10 +7,11 @@
     <title>Morphosis</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-
-
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/response-targets.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/remove-me.js"></script>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='css/favicon.ico') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </head>
@@ -23,28 +24,35 @@
                     <h1 class="title is-1 ml2">Morphosis</h1>
                     <h2 class="subtitle">Upload and transform your images with ease.</h2>
                 </div>
-                <div class="column has-text-centered-mobile">
-                    <form id='form' hx-encoding='multipart/form-data' hx-post='/upload' hx-trigger="change from:.file-input" hx-target="#upload-area" hx-swap="outerHTML" hx-disabled-elt="find input[type='file']">
-                        <div id="upload-area">
-                            <div id="image-uploader" class="file is-large is-boxed is-centered">
-                                <label class="file-label">
-                                    <input class="file-input" type="file" name="file">
-                                    <span class="file-cta p-6" id="upload-button">
-                                        <span class="file-icon">
-                                            <box-icon name='upload' color='#ffffff' size='36px'></box-icon>
+                <div class="column has-text-centered-mobile" hx-ext="remove-me">
+                        <form id='form' 
+                            hx-encoding='multipart/form-data' 
+                            hx-post='/upload' 
+                            hx-trigger="change from:.file-input" 
+                            hx-disabled-elt="find input[type='file']" 
+                            hx-target="#upload-area">
+                        
+                            <div id="upload-area">
+                                <div id="image-uploader" class="file is-large is-boxed is-centered">
+                                    <label class="file-label">
+                                        <input class="file-input" type="file" name="file">
+                                        <span class="file-cta p-6" id="upload-button">
+                                            <span class="file-icon">
+                                                <box-icon name='upload' color='#ffffff' size='36px'></box-icon>
+                                            </span>
+                                            <span class="file-label">
+                                                Choose a file…
+                                            </span>
                                         </span>
-                                        <span class="file-label">
-                                            Choose a file…
-                                        </span>
-                                    </span>
-                                </label>
+                                    </label>
+                                </div>
+                                <div id="loader" class="htmx-indicator" style="display:none;">
+                                    <box-icon name='loader-alt' color='#ffffff' size='128px' animation='spin'></box-icon>
+                                    <p class="mt-5">Uploading...</p>
+                                </div>
                             </div>
-                            <div id="loader" class="htmx-indicator" style="display:none;">
-                                <box-icon name='loader-alt' color='#ffffff' size='128px' animation='spin'></box-icon>
-                                <p class="mt-5">Uploading...</p>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    <div id="error-notification"></div>
                 </div>
             </div>
         </div>
