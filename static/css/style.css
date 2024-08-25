@@ -1,0 +1,26 @@
+/* Switching File Upload and Loader on htmx request */
+#upload-area {
+  position: relative;
+  min-height: 200px; /* Adjust as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#image-uploader, #loader {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.htmx-request #image-uploader {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.htmx-request #loader {
+  opacity: 1;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+}
