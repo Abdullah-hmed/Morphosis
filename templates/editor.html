@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/response-targets.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/remove-me.js"></script>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='css/favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</head>
+<body hx-boost="true" class="bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-700 via-gray-900 to-black">
+    <section class="hero is-fullheight">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns is-vcentered is-tablet">
+                    <div class="column is-flex is-flex-direction-column is-align-items-center is-justify-content-center is-three-fifths">
+                        {% if image %}
+                            <img src="{{ image }}" alt="Processed Image">                           
+                        {% else %}
+                            <p>There may have been some issues with processing the image, please try again</p>
+                        {% endif %}
+                    </div>
+                    <div class="column has-text-centered is-flex is-flex-direction-column">
+                        Sliders Area
+                        <input type="range" min="0" max="10" name="glasses-slider" id="glasses-slider">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

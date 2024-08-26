@@ -24,3 +24,24 @@
   justify-content: center;
   position: absolute;
 }
+
+
+/* body {
+  background-image: url('mesh-475.png');
+} */
+ 
+
+.file-cta {
+  background: rgba( 0, 0, 0, 0.1 );
+  /* box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ); */
+  backdrop-filter: blur( 8.5px );
+  -webkit-backdrop-filter: blur( 8.5px );
+  border-radius: 10px;
+}
+
+.file-cta:hover {
+  background: rgba(0, 0, 0, 0.507);
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  backdrop-filter: blur( 10px );
+  -webkit-backdrop-filter: blur( 10px );
+}

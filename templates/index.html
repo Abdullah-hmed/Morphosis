@@ -1,4 +1,3 @@
-<!-- TODO: Figure out how to replace the file uploader with progress bar while image processes -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,47 +14,48 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </head>
-<body>
+<body hx-boost="true" class="bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-700 via-gray-900 to-black">
     <section class="hero is-fullheight">
         <div class="hero-body">
-        <div class="container">
-            <div class="columns is-vcentered">
-                <div class="column is-three-fifths has-text-centered-mobile">
-                    <h1 class="title is-1 ml2">Morphosis</h1>
-                    <h2 class="subtitle">Upload and transform your images with ease.</h2>
-                </div>
-                <div class="column has-text-centered-mobile" hx-ext="remove-me">
-                        <form id='form' 
-                            hx-encoding='multipart/form-data' 
-                            hx-post='/upload' 
-                            hx-trigger="change from:.file-input" 
-                            hx-disabled-elt="find input[type='file']" 
-                            hx-target="#upload-area">
-                        
-                            <div id="upload-area">
-                                <div id="image-uploader" class="file is-large is-boxed is-centered">
-                                    <label class="file-label">
-                                        <input class="file-input" type="file" name="file">
-                                        <span class="file-cta p-6" id="upload-button">
-                                            <span class="file-icon">
-                                                <box-icon name='upload' color='#ffffff' size='36px'></box-icon>
+            <div class="container">
+                <div class="columns is-vcentered">
+                    <div class="column is-three-fifths has-text-centered-mobile">
+                        <h1 class="title is-1 ml2">Morphosis</h1>
+                        <h2 class="subtitle">Upload and transform your images with ease.</h2>
+                    </div>
+                    <div class="column has-text-centered-mobile" hx-ext="remove-me">
+                            <form id='form' 
+                                hx-encoding='multipart/form-data' 
+                                hx-post='/upload' 
+                                hx-trigger="change from:.file-input" 
+                                hx-disabled-elt="find input[type='file']" 
+                                hx-target="body"
+                                hx-swap="outerHTML transition:true">
+                            
+                                <div id="upload-area">
+                                    <div id="image-uploader" class="file is-large is-boxed is-centered" >
+                                        <label class="file-label">
+                                            <input class="file-input" type="file" name="file">
+                                            <span class="file-cta p-6" id="upload-button">
+                                                <span class="file-icon">
+                                                    <box-icon name='upload' color='#ffffff' size='36px'></box-icon>
+                                                </span>
+                                                <span class="file-label">
+                                                    Choose a file…
+                                                </span>
                                             </span>
-                                            <span class="file-label">
-                                                Choose a file…
-                                            </span>
-                                        </span>
-                                    </label>
+                                        </label>
+                                    </div>
+                                    <div id="loader" class="htmx-indicator" style="display:none;">
+                                        <box-icon name='loader-alt' color='#ffffff' size='128px' animation='spin'></box-icon>
+                                        <p class="mt-5">Uploading...</p>
+                                    </div>
                                 </div>
-                                <div id="loader" class="htmx-indicator" style="display:none;">
-                                    <box-icon name='loader-alt' color='#ffffff' size='128px' animation='spin'></box-icon>
-                                    <p class="mt-5">Uploading...</p>
-                                </div>
-                            </div>
-                        </form>
-                    <div id="error-notification"></div>
+                            </form>
+                        <div id="error-notification"></div>
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     </section>
 </body>
