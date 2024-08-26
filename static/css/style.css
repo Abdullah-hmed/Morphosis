@@ -25,12 +25,7 @@
   position: absolute;
 }
 
-
-/* body {
-  background-image: url('mesh-475.png');
-} */
- 
-
+/* File Upload Button Styling */
 .file-cta {
   background: rgba( 0, 0, 0, 0.1 );
   /* box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ); */
