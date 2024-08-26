@@ -3,8 +3,8 @@ import os
 import time
 import secrets
 # AI Imports
-# from StyleGAN_Pipeline.encode import ImageEncoder
-# from StyleGAN_Pipeline.generate import ImageGenerator
+from StyleGAN_Pipeline.encode import ImageEncoder
+from StyleGAN_Pipeline.generate import ImageGenerator
 app = Flask(__name__)
 
 UPLOAD_FOLDER = 'static/uploads'
@@ -13,6 +13,20 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 app.secret_key = secrets.token_hex()
+
+
+
+encoder = ImageEncoder()
+generator = ImageGenerator()
+
+def generateBaseImage():
+    uploaded_image = session['image_path']
+    latent = encoder.encode_image(uploaded_image)
+    generated_image_base64 = generator.generate_image(latent)
+    return generated_image_base64
+
+
+
 
 def print_error_message(error_text):
     return f'<div class="notification is-danger" remove-me="1s">{error_text}</div>'
@@ -44,7 +58,8 @@ def upload_image():
 
 @app.route('/editor')
 def editor_page():
-    return render_template('editor.html', image=session['image_path'])
+    image_data = generateBaseImage()
+    return render_template('editor.html', image=image_data)
 
 
 def is_valid_file_type(file):
