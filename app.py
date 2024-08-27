@@ -3,7 +3,7 @@ import os
 import time
 import secrets
 # AI Imports
-from StyleGAN_Pipeline.encode import ImageEncoder
+from StyleGAN_Pipeline.encode import ImageEncoder, NoFaceDetectedException
 from StyleGAN_Pipeline.generate import ImageGenerator
 app = Flask(__name__)
 
@@ -50,16 +50,18 @@ def upload_image():
             image_path = os.path.join(app.config['UPLOAD_FOLDER'], image.filename)
             image.save(image_path)
             session['image_path'] = image_path
-            time.sleep(1)
-            # return render_template_string("""<img src="{{ url_for('static', filename='uploads/' + filename) }}" alt="Uploaded image">""", filename=image.filename)
-            return redirect('/editor')
+            try:
+                image_data = generateBaseImage()
+            except NoFaceDetectedException:
+                print("NoFaceDetectedException Occurred")
+                return print_error_message("No Face Detected in Uploaded Image"), 422
+            return render_template('editor.html', image=image_data)
         return print_error_message("Invalid Request"), 422
 
 
 @app.route('/editor')
 def editor_page():
-    image_data = generateBaseImage()
-    return render_template('editor.html', image=image_data)
+    return render_template('editor.html')
 
 
 def is_valid_file_type(file):

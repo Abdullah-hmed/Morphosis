@@ -20,11 +20,13 @@
             <div class="container">
                 <div class="columns is-vcentered is-tablet">
                     <div class="column is-flex is-flex-direction-column is-align-items-center is-justify-content-center is-three-fifths">
-                        {% if image %}
-                            <img src="{{ image }}" alt="Processed Image">                           
-                        {% else %}
-                            <p>There may have been some issues with processing the image, please try again</p>
-                        {% endif %}
+                        <div class="box">
+                            {% if image %}
+                                <img src="{{ image }}" alt="Processed Image">                           
+                            {% else %}
+                                <p>There may have been some issues with processing the image, please try again</p>
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="column has-text-centered is-flex is-flex-direction-column">
                         Sliders Area
