@@ -1,12 +1,25 @@
 from flask import Flask, render_template, request, redirect, send_from_directory, url_for, render_template_string, session
+from flask_session import Session
 import os
 import time
 import secrets
 from timeit import default_timer as timer
+import numpy as np
+
 # AI Imports
 from StyleGAN_Pipeline.encode import ImageEncoder, NoFaceDetectedException
 from StyleGAN_Pipeline.generate import ImageGenerator
+from StyleGAN_Pipeline.latent_operations import LatentOperation
 app = Flask(__name__)
+
+# Session Setup
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SESSION_FILE_DIR'] = 'flask_session/'  # Directory to store session files
+app.config['SESSION_PERMANENT'] = False
+os.makedirs(app.config['SESSION_FILE_DIR'], exist_ok=True)
+Session(app)
+
+
 
 UPLOAD_FOLDER = 'static/uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -19,6 +32,7 @@ app.secret_key = secrets.token_hex()
 
 encoder = ImageEncoder()
 generator = ImageGenerator()
+modifier = LatentOperation()
 
 def generateBaseImage():
     """
@@ -36,6 +50,7 @@ def generateBaseImage():
     uploaded_image = session['image_path']
     print("Uploaded Image Path: ",upload_image)
     latent = encoder.encode_image(uploaded_image)
+    session['latent_vector'] = latent
     generated_image_base64 = generator.generate_image(latent)
     return generated_image_base64
 
@@ -58,6 +73,23 @@ def print_train_time(start, end, device=None):
 def print_error_message(error_text):
     return f'<div class="notification is-danger" remove-me="1s">{error_text}</div>'
 
+def is_valid_file_type(file):
+    print(file)
+    if file.lower().endswith(('.png', '.jpg', '.jpeg', '.webp')):
+        print("valid file")
+        return True
+    else:
+        print("invalid file")
+        return False
+
+def calculate_effect_latent(effect_dict: dict):
+    base_latent = session['latent_vector']
+    edited_latent = modifier.perform_edit(base_latent, effect_dict)
+    return edited_latent
+
+# ---------------------------------------------------------------------------- #
+#                                   Endpoints                                  #
+# ---------------------------------------------------------------------------- #
 
 @app.route('/')
 def front_page():
@@ -93,15 +125,18 @@ def upload_image():
 def editor_page():
     return render_template('editor.html')
 
-
-def is_valid_file_type(file):
-    print(file)
-    if file.lower().endswith(('.png', '.jpg', '.jpeg', '.webp')):
-        print("valid file")
-        return True
-    else:
-        print("invalid file")
-        return False
+@app.route('/effect', methods=['POST'])
+def apply_effect():
+    if request.method == 'POST':
+        effects_data = request.form.to_dict()
+        effects = {key: float(value) for key, value in effects_data.items()}
+        print(effects)
+        # Get the latent vector of the base image
+        calculated_effect_latent = calculate_effect_latent(effects)
+        generated_image_base64 = generator.generate_image(calculated_effect_latent)
+    # return generated_image_base64
+    return f"""<img id="generated-image" src="{generated_image_base64}" alt="Processed Image">"""
+    
 
 if __name__ == "__main__":
     app.run(debug=True)

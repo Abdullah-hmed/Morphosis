@@ -1,6 +1,8 @@
 # Directories
 static/uploads
 StyleGAN_Pipeline/experiment/ignore
+StyleGAN_Pipeline/pixel2style2pixel
+StyleGAN_Pipeline/stylegan2_ada_pytorch
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

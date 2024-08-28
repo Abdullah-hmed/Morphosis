@@ -19,22 +19,24 @@
     <section class="hero is-fullheight">
         <div class="hero-body">
             <div class="container">
-                <div class="columns is-vcentered is-tablet">
+                <div class="columns reverse-row-order is-vcentered is-tablet">
                     <div class="column is-flex is-flex-direction-column is-align-items-center is-justify-content-center is-three-fifths">
                         <div class="box">
                             {% if image %}
-                                <img src="{{ image }}" alt="Processed Image">                           
+                                <img id="generated-image" src="{{ image }}" alt="Processed Image">                   
                             {% else %}
                                 <p>There may have been some issues with processing the image, please try again</p>
                             {% endif %}
                         </div>
+                        <button class="button" hx-post="/effect" hx-include="#effects-container input" hx-target="#generated-image" hx-swap="outerHTML">Apply Effects</button>
+                        <div id="value-placeholder"></div>
                     </div>
                     <!-- TODO: Make the Sliders and calculate the latent change required. -->
                     <div class="column has-text-centered is-flex is-flex-direction-column">
-                        Sliders Area
-                        <form action="/effect" hx-post>
+                        <h2 class="title is-desktop">Effects</h2>
+                        <div id="effects-container">
                             <label for="glasses">Glasses</label>
-                            <input type="range" name="glasses" min="-10" max="10" value="0" class="range range-lg tooltip" step="2.5" />
+                            <input type="range" id="glasses" name="glasses" min="-10" max="10" value="0" class="range range-lg tooltip" step="2.5" />
                             <div class="flex w-full justify-between px-2 text-xs">
                                 <span>|</span>
                                 <span>|</span>
@@ -42,8 +44,9 @@
                                 <span>|</span>
                                 <span>|</span>
                             </div>
-                            <label for="happy">Glasses</label>
-                            <input type="range" name="happy" min="-10" max="10" value="0" class="range range-lg tooltip" step="2.5" />
+                            <br>
+                            <label for="happy">Happiness</label>
+                            <input type="range" id="emotion_happy" name="emotion_happy" min="-10" max="10" value="0" class="range range-lg tooltip" step="2.5" />
                             <div class="flex w-full justify-between px-2 text-xs">
                                 <span>|</span>
                                 <span>|</span>
@@ -51,8 +54,9 @@
                                 <span>|</span>
                                 <span>|</span>
                             </div>
-                            <label for="sad">Glasses</label>
-                            <input type="range" name="sad" min="-10" max="10" value="0" class="range range-lg tooltip" step="2.5" />
+                            <br>
+                            <label for="sad">Sadness</label>
+                            <input type="range" id="emotion_sad" name="emotion_sad" min="-10" max="10" value="0" class="range range-lg tooltip" step="2.5" />
                             <div class="flex w-full justify-between px-2 text-xs">
                                 <span>|</span>
                                 <span>|</span>
@@ -60,7 +64,8 @@
                                 <span>|</span>
                                 <span>|</span>
                             </div>
-                        </form>
+                            <br>
+                        </div>
                     </div>
                 </div>
             </div>
