@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, send_from_directory
 import os
 import time
 import secrets
+from timeit import default_timer as timer
 # AI Imports
 from StyleGAN_Pipeline.encode import ImageEncoder, NoFaceDetectedException
 from StyleGAN_Pipeline.generate import ImageGenerator
@@ -20,12 +21,38 @@ encoder = ImageEncoder()
 generator = ImageGenerator()
 
 def generateBaseImage():
+    """
+    Generates a base64 encoded image from an uploaded image. 
+    
+    This function takes no arguments and returns a base64 encoded string 
+    representing an image generated from the uploaded image. The image is 
+    first encoded using the ImageEncoder class, and then passed to the 
+    ImageGenerator class to generate a new image. The generated image is then 
+    encoded as a base64 string and returned.
+    
+    Returns:
+        str: A base64 encoded string representing the generated image.
+    """
     uploaded_image = session['image_path']
+    print("Uploaded Image Path: ",upload_image)
     latent = encoder.encode_image(uploaded_image)
     generated_image_base64 = generator.generate_image(latent)
     return generated_image_base64
 
+def print_train_time(start, end, device=None):
+    """Prints difference between start and end time.
 
+    Args:
+        start (float): Start time of computation (preferred in timeit format). 
+        end (float): End time of computation.
+        device ([type], optional): Device that compute is running on. Defaults to None.
+
+    Returns:
+        float: time between start and end in seconds (higher is longer).
+    """
+    total_time = end - start
+    print(f"\nTrain time on {device}: {total_time:.3f} seconds")
+    return total_time
 
 
 def print_error_message(error_text):
@@ -51,7 +78,10 @@ def upload_image():
             image.save(image_path)
             session['image_path'] = image_path
             try:
+                encode_start_time = timer()
                 image_data = generateBaseImage()
+                encode_end_time = timer()
+                print_train_time(start=encode_start_time, end=encode_end_time, device="cuda")
             except NoFaceDetectedException:
                 print("NoFaceDetectedException Occurred")
                 return print_error_message("No Face Detected in Uploaded Image"), 422

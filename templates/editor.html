@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editor</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.6.0/dist/full.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -28,9 +29,38 @@
                             {% endif %}
                         </div>
                     </div>
+                    <!-- TODO: Make the Sliders and calculate the latent change required. -->
                     <div class="column has-text-centered is-flex is-flex-direction-column">
                         Sliders Area
-                        <input type="range" min="0" max="10" name="glasses-slider" id="glasses-slider">
+                        <form action="/effect" hx-post>
+                            <label for="glasses">Glasses</label>
+                            <input type="range" name="glasses" min="-10" max="10" value="0" class="range range-lg tooltip" step="2.5" />
+                            <div class="flex w-full justify-between px-2 text-xs">
+                                <span>|</span>
+                                <span>|</span>
+                                <span>|</span>
+                                <span>|</span>
+                                <span>|</span>
+                            </div>
+                            <label for="happy">Glasses</label>
+                            <input type="range" name="happy" min="-10" max="10" value="0" class="range range-lg tooltip" step="2.5" />
+                            <div class="flex w-full justify-between px-2 text-xs">
+                                <span>|</span>
+                                <span>|</span>
+                                <span>|</span>
+                                <span>|</span>
+                                <span>|</span>
+                            </div>
+                            <label for="sad">Glasses</label>
+                            <input type="range" name="sad" min="-10" max="10" value="0" class="range range-lg tooltip" step="2.5" />
+                            <div class="flex w-full justify-between px-2 text-xs">
+                                <span>|</span>
+                                <span>|</span>
+                                <span>|</span>
+                                <span>|</span>
+                                <span>|</span>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
