@@ -4,10 +4,10 @@ StyleGAN_Pipeline/experiment/ignore
 
 # StyleGAN_Pipeline/stylegan2_ada_pytorch/.github
 # StyleGAN_Pipeline/stylegan2_ada_pytorch/dnnlib
-StyleGAN_Pipeline/stylegan2_ada_pytorch/stylegan2-ada-test.ipynb
-StyleGAN_Pipeline/stylegan2_ada_pytorch/torch_utils
-StyleGAN_Pipeline/stylegan2_ada_pytorch/training
-StyleGAN_Pipeline/stylegan2_ada_pytorch/models
+# StyleGAN_Pipeline/stylegan2_ada_pytorch/stylegan2-ada-test.ipynb
+# StyleGAN_Pipeline/stylegan2_ada_pytorch/torch_utils
+# StyleGAN_Pipeline/stylegan2_ada_pytorch/training
+# StyleGAN_Pipeline/stylegan2_ada_pytorch/models
 
 
 # Byte-compiled / optimized / DLL files
