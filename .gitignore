@@ -1,12 +1,12 @@
 # Directories
 static/uploads
 StyleGAN_Pipeline/experiment/ignore
-StyleGAN_Pipeline/pixel2style2pixel/configs
-StyleGAN_Pipeline/pixel2style2pixel/criteria
-StyleGAN_Pipeline/pixel2style2pixel/datasets
-StyleGAN_Pipeline/pixel2style2pixel/docs
-StyleGAN_Pipeline/pixel2style2pixel/environment
-StyleGAN_Pipeline/pixel2style2pixel/licenses
+# StyleGAN_Pipeline/pixel2style2pixel/configs
+# StyleGAN_Pipeline/pixel2style2pixel/criteria
+# StyleGAN_Pipeline/pixel2style2pixel/datasets
+# StyleGAN_Pipeline/pixel2style2pixel/docs
+# StyleGAN_Pipeline/pixel2style2pixel/environment
+# StyleGAN_Pipeline/pixel2style2pixel/licenses
 # StyleGAN_Pipeline/pixel2style2pixel/models
 StyleGAN_Pipeline/stylegan2_ada_pytorch
 # Byte-compiled / optimized / DLL files
