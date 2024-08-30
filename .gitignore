@@ -1,7 +1,6 @@
 # Directories
 static/uploads
 StyleGAN_Pipeline/experiment/ignore
-flask_session
 
 
 # Byte-compiled / optimized / DLL files
