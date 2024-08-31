@@ -30,6 +30,10 @@ class LatentOperation:
         for name, array in self.effect_latents_dict.items():
             print(f"Array '{name} shape: {array.shape}")
     
+    def getLatents(self):
+        for name, array in self.effect_latents_dict.items():
+            print(f"get Latents Array '{name} shape: {array.shape}")
+        return self.effect_latents_dict
     def perform_edit(self, base_latent: torch.Tensor, effect_dict: dict):
         """
         Applies the specified effects to the base latent tensor.

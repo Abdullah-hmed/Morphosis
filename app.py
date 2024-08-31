@@ -34,6 +34,8 @@ encoder = ImageEncoder()
 generator = ImageGenerator()
 modifier = LatentOperation()
 
+latent_list=modifier.getLatents()
+
 def generateBaseImage():
     """
     Generates a base64 encoded image from an uploaded image. 
@@ -117,13 +119,13 @@ def upload_image():
             except NoFaceDetectedException:
                 print("NoFaceDetectedException Occurred")
                 return print_error_message("No Face Detected in Uploaded Image"), 422
-            return render_template('editor.html', image=image_data)
+            return render_template('editor.html', image=image_data, latent_list=modifier.getLatents())
         return print_error_message("Invalid Request"), 422
 
 
 @app.route('/editor')
 def editor_page():
-    return render_template('editor.html')
+    return render_template('editor.html', latent_list=latent_list)
 
 @app.route('/effect', methods=['POST'])
 def apply_effect():
