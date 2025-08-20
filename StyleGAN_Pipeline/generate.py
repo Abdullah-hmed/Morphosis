@@ -27,7 +27,14 @@ class ImageGenerator:
     def synthesize_image(self, latent):
         # Load the pretrained weights ffhq.pkl
         network_pkl = os.path.join(current_dir, 'stylegan2_ada_pytorch', 'pretrained-weights', 'ffhq.pkl')
-        latent = latent.squeeze(0).to(self.device)
+        
+        if latent.ndim == 2:
+            latent = latent.unsqueeze(0)  # add batch dim
+        elif latent.ndim == 1:
+            latent = latent.unsqueeze(0).unsqueeze(0)
+        elif latent.ndim > 3:
+            latent = latent.squeeze(0)
+
         # Create the generator
         with dnnlib.util.open_url(network_pkl) as f:
             G = load_network_pkl(f)['G_ema'].to(self.device)

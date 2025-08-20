@@ -5,7 +5,8 @@ flask_session
 data
 inference_coupled
 outputs
-StyleGAN_Pipeline/experiment/stats.txt
+StyleGAN_Pipeline/experiment/*.txt
+*.ipynb
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
