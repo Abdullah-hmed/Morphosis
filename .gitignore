@@ -2,6 +2,10 @@
 static/uploads
 StyleGAN_Pipeline/experiment/ignore
 flask_session
+data
+inference_coupled
+outputs
+StyleGAN_Pipeline/experiment/stats.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

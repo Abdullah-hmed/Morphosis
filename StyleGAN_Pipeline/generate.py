@@ -13,9 +13,9 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 # parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
 sys.path.append(os.path.join(current_dir, "stylegan2_ada_pytorch"))
 print('generator directory', current_dir)
-
+from legacy_loader import load_network_pkl # type: ignore (Path is defined using currentdir hence suppressing error)
 import dnnlib # type: ignore (Path is defined using currentdir hence suppressing error)
-import legacy # type: ignore (Path is defined using currentdir hence suppressing error)
+
 import torch
 
 class ImageGenerator:
@@ -27,10 +27,10 @@ class ImageGenerator:
     def synthesize_image(self, latent):
         # Load the pretrained weights ffhq.pkl
         network_pkl = os.path.join(current_dir, 'stylegan2_ada_pytorch', 'pretrained-weights', 'ffhq.pkl')
-        
+        latent = latent.squeeze(0).to(self.device)
         # Create the generator
         with dnnlib.util.open_url(network_pkl) as f:
-            G = legacy.load_network_pkl(f)['G_ema'].to(self.device)
+            G = load_network_pkl(f)['G_ema'].to(self.device)
         # Generate Image
         synth_image = G.synthesis(latent, noise_mode='const')
         synth_image = (synth_image + 1) * (255/2)
